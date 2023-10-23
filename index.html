@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./icono/favicon.png"  type="img/x-icon" />
+    <link rel="stylesheet" href="estilo.css" />
+    <title>Lista de tareas</title>
+</head>
+<body>
+    <header><img src="icono/favicon.png" alt="Logo" style="width:30px; filter:drop-shadow(2px 2px 2px black);margin:0 5px 0 0;"/><h1>Lista de tareas</h1></header>
+    <nav>
+      <span title="Selecciona todo"><label><input type="checkbox" name="checkTodos" class="checkTodos" />Todos</label></span>
+      <span title="Eliminar"><button class="btn-borrar">🗑️</button></span>
+    </nav>
+
+   <main class="lista-main"></main>
+   
+    <nav class="input-text">
+      <form>
+        <input type="text" name="nuevoTexto" class="nuevoTexto"  placeholder="Ingrese nueva tarea..." autofocus/>
+        <span title="Agrega Tarea"><input type="submit" name="cargar" value="➕" id="mas"/></span>
+        <input type="hidden" id="edit-id" />
+      </form>
+    </nav>
+   
+   <template id="template">
+    <div class="tareaContenedor">
+      <input type="checkbox" name="checkTarea" class="checkTarea" />
+      <div class="texto" id="text"></div>
+      <button class="btn-tachar" >❌</button>
+      <span title="Editar"><button class="btn-editar">🖊️</button></span>
+    </div>
+   </template>
+
+
+
+   <!--✔️ ❌ ☀️ 🌙 💾 ➕-->
+    <script src="app.js"></script>
+</body>
+</html>
