@@ -40,7 +40,7 @@ button:hover, label {
 }
 nav {
   width: 90%;
-  height: 30px;
+  height: 45px;
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
@@ -48,6 +48,17 @@ nav {
   background: linear-gradient(rgb(0, 102, 255),#014E82);
   color: white;
   border-radius: 0.30rem;
+}
+.nav-menu {
+  width: auto;
+  margin-right: 15px;
+}
+.btn-menu {
+  font-weight: 900;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
 }
 main {
   width: 90%;
