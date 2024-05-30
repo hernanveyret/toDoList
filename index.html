@@ -11,6 +11,7 @@
     <header><img src="icono/favicon.png" alt="Logo" style="width:30px; filter:drop-shadow(2px 2px 2px black);margin:0 5px 0 0;"/><h1>Lista de tareas</h1></header>
     <nav>
       <span title="Selecciona todo"><label><input type="checkbox" name="checkTodos" class="checkTodos" />Todos</label></span>      
+        <b><p id="itemCheck">0</p><p id="itemText">Seleccionado/s</p></b>
       <span title="Eliminar"><button class="btn-borrar">🗑️</button></span>
     </nav>
 
@@ -18,12 +19,27 @@
    
     <nav class="input-text">
       <form>
-        <input type="text" name="nuevoTexto" class="nuevoTexto"  placeholder="Ingrese nueva tarea..." autofocus required/>
+        <input type="text" name="nuevoTexto" class="nuevoTexto"  autocomplete="off" placeholder="Ingrese nueva tarea..." autofocus required/>
         <span title="Agrega Tarea"><input type="submit" name="cargar" value="➕" id="mas"/></span>
         <input type="hidden" id="edit-id" />
       </form>
     </nav>
-   
+   <!-- Contenedor consulta si borra un item o no-->
+    <section class="delete">
+      <div class="cardBorrar">
+        <p>Desea borrar el contenido?</p>
+        <div class="nav-btn-borrar"><button onclick="siDelete()">✔️</button><button onclick="noDelete(event)">❌</button></div>
+      </div>
+    </section>
+    <!-- Contenedor, No hay items seleccionados para borrar -->
+    <section class="noItemsChecked">
+      <div class="cardBorrar">
+        <p>No hay items selecionados.</p>
+        <p>Marque 1 o varios para borrar.</p>
+        <div class="nav-btn-borrar"><button onclick="noDelete(event)">✔️</button></div>
+      </div>
+    </section>
+
    <template id="template">
     <div class="tareaContenedor">
       <input type="checkbox" name="checkTarea" class="checkTarea" />

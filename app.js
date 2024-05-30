@@ -1,6 +1,9 @@
 const $template = document.getElementById("template").content;
 const $fragment = document.createDocumentFragment();
 const contenedor = document.querySelector(".lista-main")
+let $itemCheck = document.getElementById('itemCheck');
+const $contenedorBorrar = document.querySelector('.delete');
+const $contenedorNoItems = document.querySelector('.noItemsChecked');
 
 let  db = [];
 // Verifica si hay tareas guardadas, si hay las agrega sino, crea un db vacio
@@ -24,6 +27,7 @@ db.forEach(e => {
 })
   contenedor.appendChild($fragment)
 
+  
 // Agrega nueva tarea a la lista y actualica el localStorage o edita contenido.
 document.addEventListener("submit",e => {
   e.preventDefault();
@@ -51,9 +55,38 @@ document.addEventListener("submit",e => {
 
 let checkTodos = document.querySelector(".checkTodos");
 let checkIndividual = document.querySelectorAll(".checkTarea");
+let cantItemCheckTodo = 0;
+
+$itemCheck.textContent = cantItemCheckTodo >= 2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
+
+// cuenta la cantidad de check marcados que hay
+checkIndividual.forEach(itemCheck => {
+  itemCheck.addEventListener('click', e => {
+
+    if(cantItemCheckTodo > 0){      
+      if(e.target.checked){
+        cantItemCheckTodo++
+        $itemCheck.textContent = cantItemCheckTodo >= 2? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item ` 
+      }else{
+        cantItemCheckTodo--
+        $itemCheck.textContent = cantItemCheckTodo >= 2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
+      }
+    }else {
+      if(e.target.checked){
+        cantItemCheckTodo++
+        $itemCheck.textContent = cantItemCheckTodo >= 2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
+      }else{
+        cantItemCheckTodo--
+        $itemCheck.textContent = cantItemCheckTodo >= 2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
+      }
+    }  
+  })
+})
 
 //Marca todos los check
 checkTodos.addEventListener("click", () => {
+  cantItemCheckTodo = checkIndividual.length;
+  $itemCheck.textContent = cantItemCheckTodo >=2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
 if(checkTodos.checked){
   checkIndividual.forEach( e => {
     e.checked = checkTodos.checked
@@ -61,6 +94,8 @@ if(checkTodos.checked){
 }else {
   checkIndividual.forEach(e => {
     e.checked = false
+    cantItemCheckTodo = 0;
+    $itemCheck.textContent = cantItemCheckTodo >=2 ? `${cantItemCheckTodo} Items ` : `${cantItemCheckTodo} Item `
   })
 }
 })
@@ -100,7 +135,7 @@ btnEditar.forEach(e => {
     
     let msjEdit = document.querySelector(".nuevoTexto");
     db.forEach(e => {
-      if(e.id == id){
+      if(e.id.toString() === id){
         msjEdit.value = e.texto
         mas.value = "💾"
       }
@@ -111,6 +146,14 @@ btnEditar.forEach(e => {
 //Borra todo o tarea individual
 const btnBorrar = document.querySelector(".btn-borrar");
 btnBorrar.addEventListener("click", () => {
+    if(cantItemCheckTodo > 0) {
+      $contenedorBorrar.classList.add("contenedorDelete");
+    }else{
+      $contenedorNoItems.classList.add("contenedorDelete")
+    }
+});
+
+function siDelete(){  
   checkIndividual.forEach(e => {
     if(e.checked){
       let idDelete = e.dataset.id;
@@ -118,11 +161,18 @@ btnBorrar.addEventListener("click", () => {
           if(e.id == idDelete){
             let idEdit= db.findIndex(e => e.id == idDelete)
             db.splice(idEdit,1)
-            localStorage.setItem("toDoList",JSON.stringify(db))
-                            
+            localStorage.setItem("toDoList",JSON.stringify(db))                            
           };                
         });
     };
   });
-  location.reload();
-});
+ location.reload();
+}
+
+function noDelete(e){
+  if(e.target.textContent === '❌'){
+    $contenedorBorrar.classList.remove("contenedorDelete");
+  }else{
+    $contenedorNoItems.classList.remove("contenedorDelete");
+  }
+}

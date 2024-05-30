@@ -60,6 +60,13 @@ nav {
   border: none;
   font-size: 1.5rem;
 }
+b {
+  width: auto;
+  display: flex;
+}
+#itemText {
+  display: none;
+}
 main {
   width: 90%;
   height:auto;
@@ -135,8 +142,73 @@ form {
   margin-bottom: 20px;
 }
 
+section {
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.61);
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+}
+.cardBorrar {
+  background-color: white;
+  width: 80%;
+  height: auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  box-shadow: 3px 3px 10px black;
+  transform: translateY(50px);
+  animation: animacion .5s ease
+}
+.cardBorrar p {
+  margin-top: 20px;
+}
+.nav-btn-borrar {
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+.nav-btn-borrar button {
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  width: 40px;
+  background: transparent;
+  font-size: 18px;
+}
+.nav-btn-borrar button:hover {
+  filter: drop-shadow(3px 3px 5px black);
+}
 @media screen and (min-width: 1024px){
   main, nav {
     width:50%;
+  }
+  b p {
+    margin-right: 5px;
+  }
+  #itemText {
+    display: block;
+    margin-right: 5px;
+  }
+  .cardBorrar {
+    width: 30%;
+  }
+}
+
+.contenedorDelete {
+  display: flex;
+}
+
+@keyframes animacion {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50px);
   }
 }
